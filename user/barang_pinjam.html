@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="assets/backend_assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="assets/backend_assets/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="assets/backend_assets/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="assets/backend_assets/vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="assets/backend_assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- DataTables CSS -->
+    <link href="assets/backend_assets/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="assets/backend_assets/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Selamat Datang, <?php echo $userdata['name'] ?></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <!-- <ul class="nav navbar-top-links navbar-right">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<?php echo base_url('member_system/profile') ?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="<?php echo base_url('member/do_logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+
+                </li>
+
+            </ul> -->
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+
+                        <li>
+                          <a href="<?php echo base_url() ?>"><i class="fa fa-home fa-fw"></i> Home</a>
+                        </li>
+                        <li>
+                          <a href="<?php echo base_url('member_system/profile') ?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li>
+                          <a href="<?php echo base_url('member/dashboard') ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+                        <li>
+                          <a href="<?php echo base_url('member_system/barang') ?>"><i class="fa fa-archive fa-fw"></i> Data Barang</a>
+                        </li>
+                        <li>
+                          <a href="<?php echo base_url('member_system/pinjam') ?>"><i class="fa fa-book fa-fw"></i> Barang Dipinjam</a>
+                        </li>
+                        <li>
+                          <a href="<?php echo base_url('member_system/riwayat') ?>"><i class="fa fa-history fa-fw"></i> Riwayat Peminjaman</a>
+                        </li>
+                        <li>
+                          <a href="<?php echo base_url('member/do_logout') ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                        <h1 class="page-header">Form Pinjam Barang</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+        </div>
+        
+                    <!-- START DEFAULT DATATABLE -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Form Pinjam Barang</h3>
+                        </div>
+                        <form class="form-horizontal" method="POST" id="barang_pinjam" action="<?php echo base_url('member_system/barang_pinjam_act'); ?>">
+                            <input type="hidden" name="id_peminjam" value="<?php echo $userdata['id_peminjam'] ?>">
+                            <input type="hidden" name="id_barang" value="<?php echo $data->id_barang; ?>">
+                            <input type="hidden" name="tgl_kembali" value="0">
+                            <input type="hidden" name="status" value="0">
+                        <div class="panel-body">
+                            <div class="alert alert-success hidden"><strong>Berhasil! </strong><span></span></div>
+                            <div class="alert alert-warning hidden"><strong>Memproses! </strong><span>Mohon tunggu, system sedang bekerja.</span></div>
+                            <div class="alert alert-danger hidden"><strong>Gagal! </strong><span></span></div>
+        
+        <!--				-------------------------------------------------------------------------------------------------------->
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-12 control-label">ID</label>
+                            <div class="col-md-2 col-xs-12">
+                                <input type="text" class="form-control" value="<?php echo $data->id_barang; ?>" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-12 control-label">Nama</label>
+                            <div class="col-md-2 col-xs-12">
+                                <input type="text" name="" class="form-control" value="<?php echo $data->name; ?>" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-12 control-label">Deskripsi</label>
+                            <div class="col-md-5 col-xs-12">
+                                <input type="text" name="" class="form-control" value="<?php echo $data->desc; ?>" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-12 control-label">Stock</label>
+                            <div class="col-md-2 col-xs-12">
+                                <input type="number" name="" class="form-control" value="<?php echo $data->stock; ?>" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-12 control-label">Waktu Pinjam</label>
+                            <div class="col-md-3 col-xs-12">
+                                <input type="datetime" name="tgl_pinjam" class="form-control" value="<?php echo date('Y-m-d H:i:s') ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 col-xs-12 control-label">Jumlah Pinjam</label>
+                            <div class="col-md-2 col-xs-12">
+                                <input type="number" name="jml" class="form-control" value="">
+                            </div>
+                        </div>
+        
+                        </div>
+                        <div class="panel-footer text-right">
+                            <a href="<?php echo base_url('member_system/barang'); ?>" class="pull-left btn btn-info"><i class="fa fa-arrow-left"></i> Kembali</a>
+                            <button class="btn btn-default" type="reset">Reset</button>
+                            <button class="btn btn-primary" type="submit">Simpan</button>
+                        </div>
+                        </form>
+                    </div>
+        
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="assets/backend_assets/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="assets/backend_assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="assets/backend_assets/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="assets/backend_assets/vendor/raphael/raphael.min.js"></script>
+    <script src="assets/backend_assets/vendor/morrisjs/morris.min.js"></script>
+    <script src="assets/backend_assets/data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="assets/backend_assets/dist/js/sb-admin-2.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="assets/backend_assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="assets/backend_assets/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="assets/backend_assets/vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+    <!-- Validation Plugin -->
+    <script src="assets/backend_assets/vendor/jquery-validation/jquery.validate.js"></script>
+
+
+    <!-- WARNING: DATA TABLES SCRIPT -->
+    <script>
+      $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+          responsive: true
+        });
+      });
+    </script>
+
+    <!-- WARNING VALIDATE SCRIPT  -->
+    <script type="text/javascript">
+      var jvalidate = $("#barang_pinjam").validate({
+        ignore: [],
+        rules: {
+          jml: {
+            required: true
+          },
+        },
+        submitHandler: function(form) {
+          var target = $(form).attr('action');
+          $('#barang_pinjam .alert-warning').removeClass('hidden');
+          $('#barang_pinjam .alert-success').addClass('hidden');
+          $('#barang_pinjam .alert-danger').addClass('hidden');
+          $.ajax({
+            url : target,
+            type : 'POST',
+            dataType : 'json',
+            data : $(form).serialize(),
+            success : function(response){
+              $('#barang_pinjam .alert-warning').addClass('hidden');
+              if(response.status == 'ok'){
+                $('#barang_pinjam .alert-success').removeClass('hidden').children('span').text(response.msg);
+                window.location.href = response.redirect;
+              }
+              else
+                $('#barang_pinjam .alert-danger').removeClass('hidden').children('span').text(response.msg);
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+              alert(textStatus, errorThrown);
+            }
+          });
+        }
+      });
+    </script>
+
+</body>
+
+</html>
